@@ -11,10 +11,12 @@ class Solution(object):
         total_units = 0
 
         for boxes, units in boxTypes:
-            take = min(boxes, truckSize) #no of boxes we can actually take
-            total_units += take * units
-            truckSize -= take
-
-            #if truckSize == 0: #till truck is filled fully
-                #break
+            if boxes <= truckSize:
+        # Take all boxes of this type
+                total_units += boxes * units
+                truckSize -= boxes
+            else:
+        # Truck cannot fit all boxes, so take only remaining capacity
+                total_units += truckSize * units
+                truckSize = 0
         return total_units
