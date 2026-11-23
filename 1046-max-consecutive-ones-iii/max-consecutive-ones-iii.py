@@ -11,15 +11,18 @@ class Solution(object):
 
         for right in range(len(nums)):
 
-            if nums[right] == 0: #what to do if 0 is encountered
-                if zeroes < k:
-                    zeroes += 1 #we can still transform a 0
-                else:
-                    while nums[left] != 0: #keep sliding window until one zero leaves the window
-                        left += 1
-                    left += 1
-            length = right-left+1
-            
+            if nums[right] == 0: #if 0 encountered incr its count
+                zeroes += 1
+
+            while zeroes > k: #if zeroes are more than k, shrink the window
+
+                if nums[left] == 0: #if left element is 0, decrease zero count
+                    zeroes -= 1
+
+                left += 1
+
+            length = right - left + 1
             if length > ans:
                 ans = length
+
         return ans
